@@ -12,21 +12,39 @@ const btnNew = document.querySelector('.btn-new');
 const btnHold = document.querySelector('.btn-hold');
 const btnRoll = document.querySelector('.btn-roll');
 
-let currentScore = 0;
-const scores = [0, 0];
-let activePlayer = 0;
-let playing = true;
+let scores;
+let currentScore;
+let activePlayer;
+let playing;
 
-elementScore0.textContent = 0;
-elementScore1.textContent = 0;
-elementDice.classList.add('hidden');
+const start = function () {
 
-const switchPlayer = function (){ document.getElementById(`current-${activePlayer}`).textContent = 0;
+    currentScore = 0;
+    scores = [0, 0];
+    activePlayer = 0;
+    playing = true;
+
+    elementScore0.textContent = 0;
+    elementScore1.textContent = 0;
+    current0.textContent = 0;
+    current1.textContent = 0;
+
+    elementDice.classList.add('hidden');
+    player0.classList.remove('player-winner');
+    player1.classList.remove('player-winner');
+    player0.classList.add('player-active');
+    player1.classList.remove('player-active');
+};
+start();
+
+const switchPlayer = function (){ 
+    document.getElementById(`current-${activePlayer}`).textContent = 0;
     currentScore = 0
     activePlayer = activePlayer === 0 ? 1 : 0;
     player0.classList.toggle('player-active');
     player1.classList.toggle('player-active');
-}
+};
+
 
 btnRoll.addEventListener('click', function () {
     if(playing){
@@ -43,7 +61,7 @@ btnRoll.addEventListener('click', function () {
             switchPlayer();
         }
     }
-})
+});
 
 
 btnHold.addEventListener('click', function() {
@@ -61,4 +79,7 @@ if(playing){
         switchPlayer();
     }
 }
-})
+});
+
+btnNew.addEventListener('click', start);
+
